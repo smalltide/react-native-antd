@@ -1,0 +1,24 @@
+{
+  "name": "antd",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "antd-mobile": "0.9.3",
+    "react": "15.4.1",
+    "react-native": "0.38.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "devDependencies": {
+    "babel-jest": "17.0.2",
+    "babel-preset-react-native": "1.9.0",
+    "eslint-config-rallycoding": "^3.1.0",
+    "jest": "17.0.3",
+    "react-test-renderer": "15.4.1"
+  }
+}
