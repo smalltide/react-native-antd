@@ -7,7 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "antd-mobile": "0.9.3",
+    "antd-mobile": "0.9.10",
     "react": "15.4.1",
     "react-dom": "^15.4.1",
     "react-native": "0.38.0"
