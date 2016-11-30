@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   View,
-  Text
+  Text,
+  ScrollView
 } from 'react-native';
 
 import {
@@ -14,7 +15,9 @@ import {
   TabBar,
   Button,
   ActionSheet,
-  Card
+  Card,
+  Drawer,
+  List
 } from 'antd-mobile';
 
 export default class antd extends Component {
@@ -24,13 +27,69 @@ export default class antd extends Component {
   };
 
   render() {
+    return this.useList();
+    //return this.useDrawer();
 
-
-    return this.useCard();
+    //return this.useCard();
     //return this.useActionSheet();
     //return this.useTabBar();
     //return this.useSearchBar();
     //return this.useNoticeBar();
+  }
+
+  useList() {
+    const Item = List.Item;
+    const Brief = Item.Brief;
+
+    return (
+      <ScrollView>
+      <List
+        renderHeader={() => '我是华丽丽的列表头部'}
+        renderFooter={() => '我是列表尾部'}
+      >
+        <Item style={{ flex: 0 }} thumb="https://cloud.githubusercontent.com/assets/1698185/18039916/f025c090-6dd9-11e6-9d86-a4d48a1bf049.png" data-seed="logId">标题文字点击无反馈，文字超长则隐藏</Item>
+        <Item style={{ flex: 0 }} wrap>文字超长折行文字超长折行文字超长折行文字超长折行文字超长折行文字超长折行</Item>
+        <Item style={{ flex: 0 }} onClick={() => Toast.info('点击触发onClick事件')}>内容内容 Click Me</Item>
+        <Item style={{ flex: 0 }} extra="箭头向右" arrow="horizontal">标题文字</Item>
+        <Item style={{ flex: 0 }} extra="箭头向下" arrow="down">标题文字</Item>
+        <Item style={{ flex: 0 }} extra="箭头向上" arrow="up">标题文字</Item>
+        <Item style={{ flex: 0 }} extra="没有箭头" arrow="empty">标题文字</Item>
+
+        <Item style={{ flex: 0 }} extra={<View>内容内容<Brief style={{ alignSelf: 'flex-end' }}>辅助文字内容</Brief></View>} multipleLine>垂直居中对齐</Item>
+        <Item style={{ flex: 0 }} extra={<View>内容内容<Brief style={{ alignSelf: 'flex-end' }}>辅助文字内容</Brief></View>} multipleLine align="top">顶部对齐</Item>
+
+        <Item style={{ flex: 0 }} extra="内容内容" multipleLine>
+          垂直居中对齐 <Brief>辅助文字内容</Brief>
+        </Item>
+        <Item style={{ flex: 0 }} extra="内容内容" multipleLine align="top" arrow="horizontal">
+          顶部对齐
+          <Brief>辅助文字内容</Brief>
+          <Brief>辅助文字内容</Brief>
+        </Item>
+
+        <Item style={{ flex: 0 }} thumb="https://cloud.githubusercontent.com/assets/1698185/18039916/f025c090-6dd9-11e6-9d86-a4d48a1bf049.png" data-seed="logId">标题文字点击无反馈，文字超长则隐藏</Item>
+        <Item style={{ flex: 0 }} wrap>文字超长折行文字超长折行文字超长折行文字超长折行文字超长折行文字超长折行</Item>
+        <Item style={{ flex: 0 }} onClick={() => Toast.info('点击触发onClick事件')}>内容内容 Click Me</Item>
+        <Item style={{ flex: 0 }} extra="箭头向右" arrow="horizontal">标题文字</Item>
+        <Item style={{ flex: 0 }} extra="箭头向下" arrow="down">标题文字</Item>
+        <Item style={{ flex: 0 }} extra="箭头向上" arrow="up">标题文字</Item>
+        <Item style={{ flex: 0 }} extra="没有箭头" arrow="empty">标题文字</Item>
+
+      </List>
+      </ScrollView>
+    );
+  }
+
+  useDrawer() {
+    return (
+      <Drawer
+        sidebar={<Button onClick={() => this.refs.drawer.drawer.closeDrawer()}>Close Sidebar</Button>}
+        position='left'
+        ref='drawer'
+      >
+      <Button onClick={() => this.refs.drawer.drawer.openDrawer()}>Open Drawer</Button>
+      </Drawer>
+    );
   }
 
   useCard() {
@@ -74,7 +133,7 @@ export default class antd extends Component {
               });
           }
         }
-        >
+      >
         ShowActionSheet
        </Button>
     );
@@ -86,7 +145,7 @@ export default class antd extends Component {
         unselectedTintColor="#949494"
         tintColor="#33A3F4"
         barTintColor="white"
-        >
+      >
         <TabBar.Item
           title="A"
           key="A"
@@ -95,8 +154,8 @@ export default class antd extends Component {
             this.setState({
               selectedTab: 'A',
             });
-          } }
-          >
+          }}
+        >
           <Button>A</Button>
         </TabBar.Item>
         <TabBar.Item
@@ -108,8 +167,8 @@ export default class antd extends Component {
             this.setState({
               selectedTab: 'B',
             });
-          } }
-          >
+          }}
+        >
           <Button>B</Button>
         </TabBar.Item>
         <TabBar.Item
@@ -120,8 +179,8 @@ export default class antd extends Component {
             this.setState({
               selectedTab: 'C',
             });
-          } }
-          >
+          }}
+        >
           <Button>C</Button>
         </TabBar.Item>
         <TabBar.Item
@@ -132,8 +191,8 @@ export default class antd extends Component {
             this.setState({
               selectedTab: 'D',
             });
-          } }
-          >
+          }}
+        >
           <Button>D</Button>
         </TabBar.Item>
       </TabBar>
