@@ -1,8 +1,8 @@
 # react-native-antd
 ant design mobile(antd-mobile) and react native starter
 
-1. react native
-2. ant design mobile(antd-mobile)
+1. react native version: 0.38.0
+2. ant design mobile(antd-mobile) version: 0.9.10
 
 ```
   > git clone git@github.com:smalltide/react-native-antd.git
