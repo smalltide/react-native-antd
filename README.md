@@ -1,10 +1,6 @@
 # react-native-antd
 ant design mobile(antd-mobile) and react native starter
 
-npm install --save antd-mobile react-dom
-
-npm install --save-dev babel-plugin-import
-
 1. react native
 2. ant design mobile(antd-mobile)
 
