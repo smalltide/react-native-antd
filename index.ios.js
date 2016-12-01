@@ -21,7 +21,8 @@ import {
   List,
   ListView,
   Modal,
-  Popover
+  Popover,
+  Popup
 } from 'antd-mobile';
 
 export default class antd extends Component {
@@ -40,8 +41,8 @@ export default class antd extends Component {
   }
 
   render() {
-
-    return this.usePopover();
+    return this.usePopup();
+    //return this.usePopover();
     //return this.useModal();
 
     //Very bad style (open initListViewDataSource in componentWillMount)
@@ -55,6 +56,53 @@ export default class antd extends Component {
     //return this.useTabBar();
     //return this.useSearchBar();
     //return this.useNoticeBar();
+  }
+
+  usePopup() {
+    const genPopupContent = (num) => (
+      <View>
+        <List
+          renderHeader={() => '委托买入'}
+        >
+
+          <List.Item style={{ flex: 0 }}>股票名称</List.Item>
+          <List.Item style={{ flex: 0 }}>股票代码</List.Item>
+          <List.Item style={{ flex: 0 }}>买入价格</List.Item>
+          <List.Item style={{ flex: 0 }}>买入数量</List.Item>
+
+        </List>
+        <View style={{ padding: 10 }}>
+          <Text style={{ color: 'gray' }}>投资说明投资说明...</Text>
+          <Text style={{ color: 'gray' }}>交易金额以实际成交为准</Text>
+        </View>
+        <View style={{ padding: 6 }}>
+          <Button type="primary" onClick={() => { Popup.hide(); }}>{`买入${num}`}</Button>
+        </View>
+      </View>
+    );
+
+    return (
+      <View style={{ margin: 8 }}>
+        <WhiteSpace />
+        <Button
+          type="ghost"
+          onClick={() => {
+            Popup.show(genPopupContent(0), { maskClosable: true });
+          }}
+        >
+          Dropdown 效果
+        </Button>
+        <WhiteSpace />
+        <Button
+          type="ghost"
+          onClick={() => {
+            Popup.show(genPopupContent(1), { maskClosable: true, animationType: 'slide-up' });
+          }}
+        >
+          向上弹出效果
+        </Button>
+      </View>
+    );
   }
 
   usePopover() {
@@ -94,14 +142,15 @@ export default class antd extends Component {
         </View>
 
         <View style={styles.menuContainer}>
-          <Popover ref="mc" name="m"
+          <Popover
+            ref="mc" name="m"
             overlay={overlay}
             overlayStyle={styles.overlayStyle}
             triggerStyle={styles.triggerStyle}
             onSelect={(value) => this.setState({
               popoverSelected: value
             })}
-            >
+          >
             <Text>菜单</Text>
           </Popover>
         </View>
@@ -111,25 +160,28 @@ export default class antd extends Component {
   }
 
   useModal() {
-
     return (
       <View style={{ paddingTop: 30, marginTop: 64 }}>
         <WingBlank>
-          <Button type="ghost" onClick={() => {
-            this.setState({
-              modalVisible1: true,
-            });
-          } }>
+          <Button
+            type="ghost" onClick={() => {
+              this.setState({
+                modalVisible1: true,
+              });
+            }}
+          >
             显示对话框
           </Button>
         </WingBlank>
         <WhiteSpace />
         <WingBlank>
-          <Button type="ghost" onClick={() => {
-            this.setState({
-              modalVisible2: true,
-            });
-          } }>
+          <Button
+            type="ghost" onClick={() => {
+              this.setState({
+                modalVisible2: true,
+              });
+            }}
+          >
             显示全屏对话框
           </Button>
         </WingBlank>
@@ -140,16 +192,18 @@ export default class antd extends Component {
           onClose={this.onClose}
           visible={this.state.modalVisible1}
           style={{ height: 200 }}
-          >
+        >
           <View style={{ paddingVertical: 20 }}>
             <Text style={{ textAlign: 'center' }}>这是内容...</Text>
             <Text style={{ textAlign: 'center' }}>这是内容...</Text>
           </View>
-          <Button type="primary" inline onClick={() => {
-            this.setState({
-              modalVisible1: false,
-            });
-          } }>close modal</Button>
+          <Button
+            type="primary" inline onClick={() => {
+              this.setState({
+                modalVisible1: false,
+              });
+            }}
+          >close modal</Button>
         </Modal>
 
         <Modal
@@ -157,16 +211,18 @@ export default class antd extends Component {
           visible={this.state.modalVisible2}
           style={{ flex: 1 }}
           animationType="slide-up"
-          >
+        >
           <View style={{ paddingVertical: 220 }}>
             <Text style={{ textAlign: 'center' }}>这是内容...</Text>
             <Text style={{ textAlign: 'center' }}>这是内容...</Text>
           </View>
-          <Button type="primary" inline onClick={() => {
-            this.setState({
-              modalVisible2: false,
-            });
-          } }>close modal</Button>
+          <Button
+            type="primary" inline onClick={() => {
+              this.setState({
+                modalVisible2: false,
+              });
+            }}
+          >close modal</Button>
         </Modal>
 
       </View>
@@ -226,10 +282,10 @@ export default class antd extends Component {
         pageSize={4}
         scrollRenderAheadDistance={500}
         scrollEventThrottle={20}
-        onScroll={() => { console.log('scroll'); } }
+        onScroll={() => { console.log('scroll'); }}
         useBodyScroll
         onEndReachedThreshold={10}
-        />
+      />
     );
   }
 
@@ -264,7 +320,7 @@ export default class antd extends Component {
         <List
           renderHeader={() => '我是华丽丽的列表头部'}
           renderFooter={() => '我是列表尾部'}
-          >
+        >
           <Item style={{ flex: 0 }} thumb="https://cloud.githubusercontent.com/assets/1698185/18039916/f025c090-6dd9-11e6-9d86-a4d48a1bf049.png" data-seed="logId">标题文字点击无反馈，文字超长则隐藏</Item>
           <Item style={{ flex: 0 }} wrap>文字超长折行文字超长折行文字超长折行文字超长折行文字超长折行文字超长折行</Item>
           <Item style={{ flex: 0 }} onClick={() => Toast.info('点击触发onClick事件')}>内容内容 Click Me</Item>
@@ -304,7 +360,7 @@ export default class antd extends Component {
         sidebar={<Button onClick={() => this.refs.drawer.drawer.closeDrawer()}>Close Sidebar</Button>}
         position='left'
         ref='drawer'
-        >
+      >
         <Button onClick={() => this.refs.drawer.drawer.openDrawer()}>Open Drawer</Button>
       </Drawer>
     );
@@ -320,7 +376,7 @@ export default class antd extends Component {
             thumb="https://cloud.githubusercontent.com/assets/1698185/18039916/f025c090-6dd9-11e6-9d86-a4d48a1bf049.png"
             thumbStyle={{ width: 30, height: 30 }}
             extra={'this is extra'}
-            />
+          />
           <Card.Body>
             <Text>这是卡片内容</Text>
           </Card.Body>
@@ -351,7 +407,7 @@ export default class antd extends Component {
               });
           }
         }
-        >
+      >
         ShowActionSheet
        </Button>
     );
@@ -363,7 +419,7 @@ export default class antd extends Component {
         unselectedTintColor="#949494"
         tintColor="#33A3F4"
         barTintColor="white"
-        >
+      >
         <TabBar.Item
           title="A"
           key="A"
@@ -372,8 +428,8 @@ export default class antd extends Component {
             this.setState({
               selectedTab: 'A',
             });
-          } }
-          >
+          }}
+        >
           <Button>A</Button>
         </TabBar.Item>
         <TabBar.Item
@@ -385,8 +441,8 @@ export default class antd extends Component {
             this.setState({
               selectedTab: 'B',
             });
-          } }
-          >
+          }}
+        >
           <Button>B</Button>
         </TabBar.Item>
         <TabBar.Item
@@ -397,8 +453,8 @@ export default class antd extends Component {
             this.setState({
               selectedTab: 'C',
             });
-          } }
-          >
+          }}
+        >
           <Button>C</Button>
         </TabBar.Item>
         <TabBar.Item
@@ -409,8 +465,8 @@ export default class antd extends Component {
             this.setState({
               selectedTab: 'D',
             });
-          } }
-          >
+          }}
+        >
           <Button>D</Button>
         </TabBar.Item>
       </TabBar>
