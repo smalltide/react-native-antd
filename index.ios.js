@@ -20,7 +20,8 @@ import {
   Drawer,
   List,
   ListView,
-  Modal
+  Modal,
+  Popover
 } from 'antd-mobile';
 
 export default class antd extends Component {
@@ -30,7 +31,8 @@ export default class antd extends Component {
     listViewDataSource: null,
     listViewIsLoading: false,
     modalVisible1: false,
-    modalVisible2: false
+    modalVisible2: false,
+    popoverSelected: ''
   };
 
   componentWillMount() {
@@ -39,7 +41,8 @@ export default class antd extends Component {
 
   render() {
 
-    return this.useModal();
+    return this.usePopover();
+    //return this.useModal();
 
     //Very bad style (open initListViewDataSource in componentWillMount)
     //return this.useListView();
@@ -54,6 +57,59 @@ export default class antd extends Component {
     //return this.useNoticeBar();
   }
 
+  usePopover() {
+    let overlay = [1, 2, 3].map((i, index) => (
+      <Popover.Item key={index} value={`option ${i}`}><Text>option {i}</Text></Popover.Item>
+    ));
+    overlay = overlay.concat([
+      <Popover.Item key="4" value="disabled" disabled><Text>disabled opt</Text></Popover.Item>,
+      <Popover.Item key="6" value="button ct"><Text>关闭</Text></Popover.Item>,
+    ]);
+
+    const styles = {
+      contextStyle: {
+        flex: 1,
+      },
+      menuContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        height: 400,
+        paddingHorizontal: 5,
+        paddingVertical: 10,
+      },
+      triggerStyle: {
+        flexDirection: 'column',
+        left: 5,
+      },
+      overlayStyle: {
+        left: 5,
+        marginTop: 20,
+      },
+    };
+
+    return (
+      <View>
+        <View>
+          <Text style={{ marginTop: 30, marginLeft: 5 }}>选择了：{this.state.popoverSelected}</Text>
+        </View>
+
+        <View style={styles.menuContainer}>
+          <Popover ref="mc" name="m"
+            overlay={overlay}
+            overlayStyle={styles.overlayStyle}
+            triggerStyle={styles.triggerStyle}
+            onSelect={(value) => this.setState({
+              popoverSelected: value
+            })}
+            >
+            <Text>菜单</Text>
+          </Popover>
+        </View>
+
+      </View>
+    );
+  }
+
   useModal() {
 
     return (
@@ -63,7 +119,7 @@ export default class antd extends Component {
             this.setState({
               modalVisible1: true,
             });
-          }}>
+          } }>
             显示对话框
           </Button>
         </WingBlank>
@@ -73,7 +129,7 @@ export default class antd extends Component {
             this.setState({
               modalVisible2: true,
             });
-          }}>
+          } }>
             显示全屏对话框
           </Button>
         </WingBlank>
@@ -93,7 +149,7 @@ export default class antd extends Component {
             this.setState({
               modalVisible1: false,
             });
-          }}>close modal</Button>
+          } }>close modal</Button>
         </Modal>
 
         <Modal
@@ -106,11 +162,11 @@ export default class antd extends Component {
             <Text style={{ textAlign: 'center' }}>这是内容...</Text>
             <Text style={{ textAlign: 'center' }}>这是内容...</Text>
           </View>
-           <Button type="primary" inline onClick={() => {
+          <Button type="primary" inline onClick={() => {
             this.setState({
               modalVisible2: false,
             });
-          }}>close modal</Button>
+          } }>close modal</Button>
         </Modal>
 
       </View>
