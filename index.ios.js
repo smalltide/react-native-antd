@@ -26,7 +26,8 @@ import {
   Popover,
   Popup,
   ActivityIndicator,
-  Badge
+  Badge,
+  Carousel
 } from 'antd-mobile';
 
 export default class antd extends Component {
@@ -46,7 +47,9 @@ export default class antd extends Component {
 
   render() {
 
-    return this.useBadge();
+    return this.useCarousel();
+
+    //return this.useBadge();
     //return this.useButton();
     //return this.useActivityIndicator();
 
@@ -67,14 +70,65 @@ export default class antd extends Component {
     //return this.useNoticeBar();
   }
 
+  useCarousel() {
+    const styles = {
+      wrapper: {
+        backgroundColor: '#fff',
+      },
+      container: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1
+      },
+      text: {
+        color: '#fff',
+        fontSize: 36,
+      }
+    };
+
+    return (
+      <View style={{ marginTop: 30, flex: 1 }}>
+
+        <Carousel
+          style={styles.wrapper}
+          autoplayTimeout={2}
+          selectedIndex={2}
+          autoplay
+          infinite
+          afterChange={this.onselectedIndexChange}
+          >
+
+          <View style={[styles.container, { backgroundColor: 'red' }]}>
+            <Text>Carousel 1</Text>
+          </View>
+          <View style={[styles.container, , { backgroundColor: 'blue' }]}>
+            <Text>Carousel 2</Text>
+          </View>
+          <View style={[styles.container, { backgroundColor: 'yellow' }]}>
+            <Text>Carousel 3</Text>
+          </View>
+          <View style={[styles.container, { backgroundColor: 'black' }]}>
+            <Text>Carousel 4</Text>
+          </View>
+          <View style={[styles.container, { backgroundColor: '#ccc' }]}>
+            <Text>Carousel 5</Text>
+          </View>
+
+        </Carousel>
+
+        <View style={{ flex: 2 }} />
+      </View>
+    );
+  }
+
   useBadge() {
     return (
-       <ScrollView
+      <ScrollView
         style={{ flex: 1 }}
         automaticallyAdjustContentInsets={false}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
-       >
+        >
         <View style={{ padding: 20 }}>
           <Badge text={9}>
             <View style={{ width: 52, height: 52, backgroundColor: 'rgba(255, 140, 101, 0.15)' }} />
@@ -128,8 +182,8 @@ export default class antd extends Component {
           <Button
             onClick={() => {
               Alert.alert('Button', 'button clicked');
-            }}
-          >default button</Button>
+            } }
+            >default button</Button>
           <WhiteSpace />
           <Button type="primary">primary button</Button>
           <WhiteSpace />
@@ -149,7 +203,7 @@ export default class antd extends Component {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}
-        >
+          >
           <Text>小按钮</Text>
           <Button type="ghost" size="small">ghost small button</Button>
         </WingBlank>
@@ -160,7 +214,7 @@ export default class antd extends Component {
             style={{ flex: 0 }}
             extra={<Button type="ghost" size="small" inline>small</Button>}
             multipleLine
-          >
+            >
             区域经理
             <List.Item.Brief>
               可进行收款、退款、折扣管理、查看数据等操作
@@ -171,7 +225,7 @@ export default class antd extends Component {
             style={{ flex: 0 }}
             extra={<Button size="small" inline>small</Button>}
             multipleLine
-          >
+            >
             区域经理
           <List.Item.Brief>
               可进行收款、退款、折扣管理、查看数据等操作
@@ -268,7 +322,7 @@ export default class antd extends Component {
           toast
           size="large"
           text="Toast style..."
-        />
+          />
       </View>
     );
   }
@@ -278,7 +332,7 @@ export default class antd extends Component {
       <View>
         <List
           renderHeader={() => '委托买入'}
-        >
+          >
 
           <List.Item style={{ flex: 0 }}>股票名称</List.Item>
           <List.Item style={{ flex: 0 }}>股票代码</List.Item>
@@ -291,7 +345,7 @@ export default class antd extends Component {
           <Text style={{ color: 'gray' }}>交易金额以实际成交为准</Text>
         </View>
         <View style={{ padding: 6 }}>
-          <Button type="primary" onClick={() => { Popup.hide(); }}>{`买入${num}`}</Button>
+          <Button type="primary" onClick={() => { Popup.hide(); } }>{`买入${num}`}</Button>
         </View>
       </View>
     );
@@ -303,8 +357,8 @@ export default class antd extends Component {
           type="ghost"
           onClick={() => {
             Popup.show(genPopupContent(0), { maskClosable: true });
-          }}
-        >
+          } }
+          >
           Dropdown 效果
         </Button>
         <WhiteSpace />
@@ -312,8 +366,8 @@ export default class antd extends Component {
           type="ghost"
           onClick={() => {
             Popup.show(genPopupContent(1), { maskClosable: true, animationType: 'slide-up' });
-          }}
-        >
+          } }
+          >
           向上弹出效果
         </Button>
       </View>
@@ -365,7 +419,7 @@ export default class antd extends Component {
             onSelect={(value) => this.setState({
               popoverSelected: value
             })}
-          >
+            >
             <Text>菜单</Text>
           </Popover>
         </View>
@@ -383,8 +437,8 @@ export default class antd extends Component {
               this.setState({
                 modalVisible1: true,
               });
-            }}
-          >
+            } }
+            >
             显示对话框
           </Button>
         </WingBlank>
@@ -395,8 +449,8 @@ export default class antd extends Component {
               this.setState({
                 modalVisible2: true,
               });
-            }}
-          >
+            } }
+            >
             显示全屏对话框
           </Button>
         </WingBlank>
@@ -407,7 +461,7 @@ export default class antd extends Component {
           onClose={this.onClose}
           visible={this.state.modalVisible1}
           style={{ height: 200 }}
-        >
+          >
           <View style={{ paddingVertical: 20 }}>
             <Text style={{ textAlign: 'center' }}>这是内容...</Text>
             <Text style={{ textAlign: 'center' }}>这是内容...</Text>
@@ -417,8 +471,8 @@ export default class antd extends Component {
               this.setState({
                 modalVisible1: false,
               });
-            }}
-          >close modal</Button>
+            } }
+            >close modal</Button>
         </Modal>
 
         <Modal
@@ -426,7 +480,7 @@ export default class antd extends Component {
           visible={this.state.modalVisible2}
           style={{ flex: 1 }}
           animationType="slide-up"
-        >
+          >
           <View style={{ paddingVertical: 220 }}>
             <Text style={{ textAlign: 'center' }}>这是内容...</Text>
             <Text style={{ textAlign: 'center' }}>这是内容...</Text>
@@ -436,8 +490,8 @@ export default class antd extends Component {
               this.setState({
                 modalVisible2: false,
               });
-            }}
-          >close modal</Button>
+            } }
+            >close modal</Button>
         </Modal>
 
       </View>
@@ -497,10 +551,10 @@ export default class antd extends Component {
         pageSize={4}
         scrollRenderAheadDistance={500}
         scrollEventThrottle={20}
-        onScroll={() => { console.log('scroll'); }}
+        onScroll={() => { console.log('scroll'); } }
         useBodyScroll
         onEndReachedThreshold={10}
-      />
+        />
     );
   }
 
@@ -535,7 +589,7 @@ export default class antd extends Component {
         <List
           renderHeader={() => '我是华丽丽的列表头部'}
           renderFooter={() => '我是列表尾部'}
-        >
+          >
           <Item style={{ flex: 0 }} thumb="https://cloud.githubusercontent.com/assets/1698185/18039916/f025c090-6dd9-11e6-9d86-a4d48a1bf049.png" data-seed="logId">标题文字点击无反馈，文字超长则隐藏</Item>
           <Item style={{ flex: 0 }} wrap>文字超长折行文字超长折行文字超长折行文字超长折行文字超长折行文字超长折行</Item>
           <Item style={{ flex: 0 }} onClick={() => Toast.info('点击触发onClick事件')}>内容内容 Click Me</Item>
@@ -575,7 +629,7 @@ export default class antd extends Component {
         sidebar={<Button onClick={() => this.refs.drawer.drawer.closeDrawer()}>Close Sidebar</Button>}
         position='left'
         ref='drawer'
-      >
+        >
         <Button onClick={() => this.refs.drawer.drawer.openDrawer()}>Open Drawer</Button>
       </Drawer>
     );
@@ -591,7 +645,7 @@ export default class antd extends Component {
             thumb="https://cloud.githubusercontent.com/assets/1698185/18039916/f025c090-6dd9-11e6-9d86-a4d48a1bf049.png"
             thumbStyle={{ width: 30, height: 30 }}
             extra={'this is extra'}
-          />
+            />
           <Card.Body>
             <Text>这是卡片内容</Text>
           </Card.Body>
@@ -622,7 +676,7 @@ export default class antd extends Component {
               });
           }
         }
-      >
+        >
         ShowActionSheet
        </Button>
     );
@@ -634,7 +688,7 @@ export default class antd extends Component {
         unselectedTintColor="#949494"
         tintColor="#33A3F4"
         barTintColor="white"
-      >
+        >
         <TabBar.Item
           title="A"
           key="A"
@@ -643,8 +697,8 @@ export default class antd extends Component {
             this.setState({
               selectedTab: 'A',
             });
-          }}
-        >
+          } }
+          >
           <Button>A</Button>
         </TabBar.Item>
         <TabBar.Item
@@ -656,8 +710,8 @@ export default class antd extends Component {
             this.setState({
               selectedTab: 'B',
             });
-          }}
-        >
+          } }
+          >
           <Button>B</Button>
         </TabBar.Item>
         <TabBar.Item
@@ -668,8 +722,8 @@ export default class antd extends Component {
             this.setState({
               selectedTab: 'C',
             });
-          }}
-        >
+          } }
+          >
           <Button>C</Button>
         </TabBar.Item>
         <TabBar.Item
@@ -680,8 +734,8 @@ export default class antd extends Component {
             this.setState({
               selectedTab: 'D',
             });
-          }}
-        >
+          } }
+          >
           <Button>D</Button>
         </TabBar.Item>
       </TabBar>
