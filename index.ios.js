@@ -28,8 +28,12 @@ import {
   ActivityIndicator,
   Badge,
   Carousel,
-  Checkbox
+  Checkbox,
+  DatePicker,
+  ImagePicker
 } from 'antd-mobile';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
 
 export default class antd extends Component {
   state = {
@@ -39,7 +43,11 @@ export default class antd extends Component {
     listViewIsLoading: false,
     modalVisible1: false,
     modalVisible2: false,
-    popoverSelected: ''
+    popoverSelected: '',
+    imagePicker: [{
+        url: 'https://zos.alipayobjects.com/rmsportal/WCxfiPKoDDHwLBM.png',
+        id: '2121',
+    }]
   };
 
   componentWillMount() {
@@ -48,7 +56,9 @@ export default class antd extends Component {
 
   render() {
 
-    return this.useCheckbox();
+    return this.useImagePicker();
+    //return this.useDatePicker();
+    //return this.useCheckbox();
 
     //return this.useCarousel();
 
@@ -73,19 +83,55 @@ export default class antd extends Component {
     //return this.useNoticeBar();
   }
 
+  useImagePicker() {
+    return (
+       <View style={{ marginTop: 20, marginLeft: 20 }}>
+        <ImagePicker
+        onChange={(imagePicker) => {
+            this.setState({
+              imagePicker,
+            });
+          }}
+        files={this.state.imagePicker} />
+      </View>
+    );
+  }
+
+  useDatePicker() {
+    const defaultDate = moment().locale('zh-cn').utcOffset(8);
+
+    return (
+      <View style={{ marginTop: 30 }}>
+
+        <DatePicker
+          defaultDate={defaultDate}
+          value={this.state.value}
+          mode="date"
+          minDate={this.date1MinDate || (this.date1MinDate = moment('2015-08-06', 'YYYY-MM-DD'))}
+          maxDate={this.date1MaxDate || (this.date1MaxDate = moment('2016-12-06', 'YYYY-MM-DD'))}
+          onChange={this.onChange}
+          format={val => val.fromNow()}
+          >
+          <Button>选择时间</Button>
+        </DatePicker>
+
+      </View>
+    );
+  }
+
   useCheckbox() {
     const AgreeItem = Checkbox.AgreeItem;
     const CheckboxItem = Checkbox.CheckboxItem;
 
     return (
-       <View>
+      <View>
 
         <View style={{ padding: 10 }}>
-          <Checkbox checked={this.state.checkBox1} style={{tintColor:'#f00'}} onChange={(event) => {
+          <Checkbox checked={this.state.checkBox1} style={{ tintColor: '#f00' }} onChange={(event) => {
             this.setState({
               checkBox1: event.target.checked,
             });
-          }} />
+          } } />
           <WhiteSpace />
           <Checkbox>Checkbox</Checkbox>
           <WhiteSpace />
@@ -97,12 +143,12 @@ export default class antd extends Component {
 
         <AgreeItem>同意同意同意同意同意同意同意同意同意同意同意同意同意同意同意同意同意同意同意同意同意</AgreeItem>
         <WhiteSpace />
-        <AgreeItem checked={this.state.agreeItem1} checkboxStyle={{tintColor:'#f00'}} onChange={(event) => {
-            this.setState({
-              agreeItem1: event.target.checked,
-            });
-          }}
-        >同意 《信用支付服务合同》
+        <AgreeItem checked={this.state.agreeItem1} checkboxStyle={{ tintColor: '#f00' }} onChange={(event) => {
+          this.setState({
+            agreeItem1: event.target.checked,
+          });
+        } }
+          >同意 《信用支付服务合同》
         </AgreeItem>
 
         <WhiteSpace />
@@ -110,18 +156,18 @@ export default class antd extends Component {
         <WhiteSpace />
         <AgreeItem checked disabled>强制选中,不可编辑 《信用支付服务合同信用支付服务合同信用支付服务合同》</AgreeItem>
 
-        <List style={{marginTop: 30,}}>
-          <Text style={{marginTop: 12}}>表单多选项，普通列表中多选项</Text>
-          <CheckboxItem style={{flex: 0}} checked={this.state.checkboxItem1} onChange={(event) => {
+        <List style={{ marginTop: 30, }}>
+          <Text style={{ marginTop: 12 }}>表单多选项，普通列表中多选项</Text>
+          <CheckboxItem style={{ flex: 0 }} checked={this.state.checkboxItem1} onChange={(event) => {
             this.setState({
               checkboxItem1: event.target.checked,
             });
-          }}
-          >签约
+          } }
+            >签约
           </CheckboxItem>
-          <CheckboxItem style={{flex: 0}}>物料铺设</CheckboxItem>
-          <CheckboxItem style={{flex: 0}} disabled>机具维护（不能选）</CheckboxItem>
-          <CheckboxItem style={{flex: 0}} disabled checked>产品问题解决（必选）</CheckboxItem>
+          <CheckboxItem style={{ flex: 0 }}>物料铺设</CheckboxItem>
+          <CheckboxItem style={{ flex: 0 }} disabled>机具维护（不能选）</CheckboxItem>
+          <CheckboxItem style={{ flex: 0 }} disabled checked>产品问题解决（必选）</CheckboxItem>
         </List>
       </View>
     );
