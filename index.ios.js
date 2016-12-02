@@ -5,7 +5,7 @@ import {
   Text,
   ScrollView,
   Image,
-  Alert
+  Alert,
 } from 'react-native';
 
 import {
@@ -83,6 +83,7 @@ export default class antd extends Component {
       text: {
         color: '#fff',
         fontSize: 36,
+        flex: 1
       }
     };
 
@@ -99,19 +100,19 @@ export default class antd extends Component {
           >
 
           <View style={[styles.container, { backgroundColor: 'red' }]}>
-            <Text>Carousel 1</Text>
+            <Text style={styles.text}>Carousel 1</Text>
           </View>
           <View style={[styles.container, , { backgroundColor: 'blue' }]}>
-            <Text>Carousel 2</Text>
+            <Text style={styles.text}>Carousel 2</Text>
           </View>
           <View style={[styles.container, { backgroundColor: 'yellow' }]}>
-            <Text>Carousel 3</Text>
+            <Text style={styles.text}>Carousel 3</Text>
           </View>
           <View style={[styles.container, { backgroundColor: 'black' }]}>
-            <Text>Carousel 4</Text>
+            <Text style={styles.text}>Carousel 4</Text>
           </View>
           <View style={[styles.container, { backgroundColor: '#ccc' }]}>
-            <Text>Carousel 5</Text>
+            <Text style={styles.text}>Carousel 5</Text>
           </View>
 
         </Carousel>
