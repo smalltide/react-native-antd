@@ -4,13 +4,15 @@ import {
   View,
   Text,
   ScrollView,
-  Image
+  Image,
+  Alert
 } from 'react-native';
 
 import {
-  NoticeBar,
   WhiteSpace,
   WingBlank,
+  Flex,
+  NoticeBar,
   Toast,
   SearchBar,
   TabBar,
@@ -22,7 +24,9 @@ import {
   ListView,
   Modal,
   Popover,
-  Popup
+  Popup,
+  ActivityIndicator,
+  Badge
 } from 'antd-mobile';
 
 export default class antd extends Component {
@@ -41,7 +45,12 @@ export default class antd extends Component {
   }
 
   render() {
-    return this.usePopup();
+
+    return this.useBadge();
+    //return this.useButton();
+    //return this.useActivityIndicator();
+
+    //return this.usePopup();
     //return this.usePopover();
     //return this.useModal();
 
@@ -56,6 +65,212 @@ export default class antd extends Component {
     //return this.useTabBar();
     //return this.useSearchBar();
     //return this.useNoticeBar();
+  }
+
+  useBadge() {
+    return (
+       <ScrollView
+        style={{ flex: 1 }}
+        automaticallyAdjustContentInsets={false}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+       >
+        <View style={{ padding: 20 }}>
+          <Badge text={9}>
+            <View style={{ width: 52, height: 52, backgroundColor: 'rgba(255, 140, 101, 0.15)' }} />
+          </Badge>
+
+          <WhiteSpace />
+          <WhiteSpace />
+
+          <Badge text={109} overflowCount={100}>
+            <View style={{ width: 52, height: 52, backgroundColor: 'rgba(255, 140, 101, 0.15)' }} />
+          </Badge>
+
+          <WhiteSpace />
+          <WhiteSpace />
+
+          <Badge text={109}>
+            <View style={{ width: 52, height: 52, backgroundColor: 'rgba(255, 140, 101, 0.15)' }} />
+          </Badge>
+
+          <WhiteSpace />
+          <WhiteSpace />
+
+          <Badge text="new">
+            <View style={{ width: 52, height: 52, backgroundColor: 'rgba(255, 140, 101, 0.15)' }} />
+          </Badge>
+
+          <WhiteSpace />
+          <WhiteSpace />
+
+          <Badge text={109} dot>
+            <View style={{ width: 52, height: 52, backgroundColor: 'rgba(255, 140, 101, 0.15)' }} />
+          </Badge>
+
+          <WhiteSpace />
+          <WhiteSpace />
+
+          <Badge text={33} corner>
+            <View style={{ width: 52, height: 52, backgroundColor: 'rgba(255, 140, 101, 0.15)' }} />
+          </Badge>
+
+        </View>
+      </ScrollView>
+    );
+  }
+
+  useButton() {
+    return (
+      <View>
+        <WhiteSpace />
+        <WingBlank>
+          <Button
+            onClick={() => {
+              Alert.alert('Button', 'button clicked');
+            }}
+          >default button</Button>
+          <WhiteSpace />
+          <Button type="primary">primary button</Button>
+          <WhiteSpace />
+          <Button type="warning">warning button</Button>
+          <WhiteSpace />
+          <Button disabled>disable button</Button>
+          <WhiteSpace />
+          <Button activeStyle={false}>无点击反馈</Button>
+          <WhiteSpace />
+          <Button activeStyle={{ backgroundColor: 'red' }}>自定义点击反馈 style</Button>
+        </WingBlank>
+
+        <WingBlank
+          style={{
+            marginTop: 20,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Text>小按钮</Text>
+          <Button type="ghost" size="small">ghost small button</Button>
+        </WingBlank>
+
+        <List style={{ margin: 10, backgroundColor: 'white' }}>
+
+          <List.Item
+            style={{ flex: 0 }}
+            extra={<Button type="ghost" size="small" inline>small</Button>}
+            multipleLine
+          >
+            区域经理
+            <List.Item.Brief>
+              可进行收款、退款、折扣管理、查看数据等操作
+            </List.Item.Brief>
+          </List.Item>
+
+          <List.Item
+            style={{ flex: 0 }}
+            extra={<Button size="small" inline>small</Button>}
+            multipleLine
+          >
+            区域经理
+          <List.Item.Brief>
+              可进行收款、退款、折扣管理、查看数据等操作
+          </List.Item.Brief>
+          </List.Item>
+
+        </List>
+
+      </View>
+    );
+  }
+
+  useActivityIndicator() {
+    const styles = {
+      demo: {
+        marginTop: 20,
+      },
+      darkBg: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 89,
+        height: 89,
+        backgroundColor: '#2B2F42',
+      },
+      gray: {
+        backgroundColor: '#CCC',
+      },
+      horizontal: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 8,
+      },
+    };
+
+    return (
+      <View style={styles.demo}>
+        <WingBlank>
+          <Flex>
+            <Flex.Item>
+              <Text>Icon无文案</Text>
+            </Flex.Item>
+            <Flex.Item>
+              <ActivityIndicator />
+            </Flex.Item>
+          </Flex>
+        </WingBlank>
+
+        <WhiteSpace size="xl" style={{ backgroundColor: '#fff' }} />
+
+        <WingBlank>
+          <Flex>
+            <Flex.Item>
+              <Text>Icon带文案</Text>
+            </Flex.Item>
+            <Flex.Item>
+              <ActivityIndicator text="正在加载..." />
+            </Flex.Item>
+          </Flex>
+        </WingBlank>
+
+        <WhiteSpace size="xl" style={{ backgroundColor: '#fff' }} />
+
+        <WingBlank>
+          <Flex>
+            <Flex.Item>
+              <Text>深色背景</Text>
+            </Flex.Item>
+            <Flex.Item>
+              <View style={[styles.darkBg]}>
+                <ActivityIndicator color="#fff" />
+              </View>
+            </Flex.Item>
+          </Flex>
+        </WingBlank>
+
+        <WhiteSpace size="xl" style={{ backgroundColor: '#fff' }} />
+
+        <WingBlank>
+          <Flex>
+            <Flex.Item>
+              <Text>大号icon</Text>
+            </Flex.Item>
+            <Flex.Item>
+              <ActivityIndicator size="large" />
+            </Flex.Item>
+          </Flex>
+        </WingBlank>
+
+        <WhiteSpace size="xl" style={{ backgroundColor: '#fff' }} />
+
+
+        <ActivityIndicator
+          animating={this.state.animating}
+          toast
+          size="large"
+          text="Toast style..."
+        />
+      </View>
+    );
   }
 
   usePopup() {
